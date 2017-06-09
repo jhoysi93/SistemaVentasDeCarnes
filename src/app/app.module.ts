@@ -25,6 +25,15 @@ import { AlmacenesComponent } from './components/dashboard/almacenes/almacenes.c
 import { CobrosComponent } from './components/dashboard/cobros/cobros.component';
 import { PreciosComponent } from './components/dashboard/precios/precios.component';
 
+//cards
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {MdCardModule} from '@angular/material';
+
+//grid
+import {MdGridListModule} from '@angular/material';
+
+
 
 @NgModule({
   declarations: [
@@ -46,7 +55,11 @@ import { PreciosComponent } from './components/dashboard/precios/precios.compone
     BrowserModule,
     FormsModule,
     HttpModule,
-    ROUTES_ROUTING
+    ROUTES_ROUTING,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
+    MdCardModule,
+    MdGridListModule
   ],
   providers: [
     Auth,

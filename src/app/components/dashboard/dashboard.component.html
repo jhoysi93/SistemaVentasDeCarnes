@@ -1,12 +1,12 @@
 <div>
   <div class="row">
 
-    <div class="col-md-3">
+    <div class="col-md-2">
       <app-menu-lateral (eventMenu)= "getMenuEvent($event)"></app-menu-lateral>
     </div>
 
-    <div class="col-md-9">
-      <div class="container">
+    <div class="col-md-10">
+      <div>
         <app-almacenes *ngIf="menuOpcion=='almacenes'"></app-almacenes>
         <app-clientes *ngIf="menuOpcion=='clientes'"></app-clientes>
         <app-cobros *ngIf="menuOpcion=='cobros'"></app-cobros>

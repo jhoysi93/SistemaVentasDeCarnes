@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PedidosComponent implements OnInit {
 
+  activarProductos: boolean = false;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  mostrarProductos(){
+    this.activarProductos = !this.activarProductos;
   }
 
 }

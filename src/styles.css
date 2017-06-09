@@ -14,8 +14,8 @@
 
 }
 body{
-  /*background-color: #FFF9C4;*/
-  background-color:  #FFFDE7;  
+  background-color: #FFF9C4;
+  /*background-color:  #FFFDE7;*/  
   
   
 }
@@ -27,6 +27,16 @@ h1 {
 h2 {
   font-family: 'Slabo 27px', serif;
 }
+h3 {
+  font-family: 'Slabo 27px', serif;
+}
+h4 {
+  font-family: 'Slabo 27px', serif;
+}
+h5 {
+  font-family: 'Slabo 27px', serif;
+}
+
 h2:hover{
     color:black;
 }
@@ -49,4 +59,22 @@ h2:hover{
     font-family: 'Slabo 27px', serif;
     font-size: x-large;
 }
+
+.example-card {
+  width: 300px;
+ 
+}
+
+.example-header-image {
+  background-image: url('./assets/img/img1.jpg');
+  background-size: cover;
+}
+md-grid-tile {
+  /*background: lightblue;*/
+}
+
+.inputColor{
+    background: #DAD8D8;
+}
+
 
