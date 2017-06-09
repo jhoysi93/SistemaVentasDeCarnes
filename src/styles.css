@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Neucha|Slabo+27px');
+
+
+.main-container{
+    margin-top: 55px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 150px;
+}
+.imagen{
+    width: 200px;
+    height: 200px;
+
+}
+body{
+  /*background-color: #FFF9C4;*/
+  background-color:  #FFFDE7;  
+  
+  
+}
+
+
+h1 {
+    font-family: 'Slabo 27px', serif;
+}
+h2 {
+  font-family: 'Slabo 27px', serif;
+}
+h2:hover{
+    color:black;
+}
+.footerAux {
+    background: #008BBF;
+    text-align: center;
+    padding: 10px;
+    
+    
+  position: fixed;
+    height: 60px;
+    bottom: 0;
+    width: 100%;
+  
+}
+.buton1{
+    color:#FFFFFF;
+    width:210px;
+    height:80px;
+    font-family: 'Slabo 27px', serif;
+    font-size: x-large;
+}
+

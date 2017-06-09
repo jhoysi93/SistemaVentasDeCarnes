@@ -1,10 +1,10 @@
-import { SistemaVentaCarnesPage } from './app.po';
+import { AuthappPage } from './app.po';
 
-describe('sistema-venta-carnes App', () => {
-  let page: SistemaVentaCarnesPage;
+describe('authapp App', () => {
+  let page: AuthappPage;
 
   beforeEach(() => {
-    page = new SistemaVentaCarnesPage();
+    page = new AuthappPage();
   });
 
   it('should display message saying app works', () => {

@@ -1,0 +1,29 @@
+<nav style="background:#0D47A1; color:#FFFFFF" class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand"  [routerLink]="['home']"><h1 style="color:white">\\\</h1></a>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['home']" style="color:white" ><h2>Home</h2></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['about']" style="color:white" ><h2>Precios</h2></a>
+      </li>
+      <li class="nav-item" *ngIf="auth.authenticated()">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['dashboard']" style="color:white" ><h2>Dashboard</h2></a>
+      </li>
+    </ul>
+
+
+    <!-- app/app.template.html -->
+
+<div class="navbar-header">
+  <button class="btn btn-secondary" (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</button>
+  <button class="btn btn-secondary" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
+</div>
+
+
+  </div>
+</nav>

@@ -1,0 +1,22 @@
+<div>
+  <div class="row">
+
+    <div class="col-md-3">
+      <app-menu-lateral (eventMenu)= "getMenuEvent($event)"></app-menu-lateral>
+    </div>
+
+    <div class="col-md-9">
+      <div class="container">
+        <app-almacenes *ngIf="menuOpcion=='almacenes'"></app-almacenes>
+        <app-clientes *ngIf="menuOpcion=='clientes'"></app-clientes>
+        <app-cobros *ngIf="menuOpcion=='cobros'"></app-cobros>
+        <app-despachos *ngIf="menuOpcion=='despachos'"></app-despachos>
+        <app-pedidos *ngIf="menuOpcion=='pedidos'"></app-pedidos>
+        <app-precios *ngIf="menuOpcion=='precios'"></app-precios>
+        <app-produccion *ngIf="menuOpcion=='produccion'"></app-produccion>
+      </div>
+    </div>
+
+  </div>
+
+</div>
