@@ -1,3 +1,78 @@
-<p>
-  produccion works!
-</p>
+<div class="container">
+  
+  <div class="row"> 
+    <div class="col-md-12">
+
+      <button type="button" class="btn btn-primary" (click) ="activarFormAgregarItem = !activarFormAgregarItem" >Agregar Item</button>
+      
+      <br><br>
+
+        <form *ngIf="activarFormAgregarItem">
+        <div class="form-group">
+          <label for="formGroupExampleInput">Nombre Item</label>
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nit Cliente">
+        </div>
+
+        <div class="form-group">
+          <label for="formGroupExampleInput">Codigo Item</label>
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nombre CLiente">
+        </div>
+
+        <div class="form-group">
+          <label for="formGroupExampleInput">Cantidad</label>
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nombre CLiente">
+        </div>
+
+        <div class="form-group">
+          <label for="formGroupExampleInput">Detalle</label>
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nombre CLiente">
+        </div>
+
+        <div class="form-group">
+          <label for="formGroupExampleInput">Tipo Almacen</label>
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nombre CLiente">
+        </div>
+
+      </form>
+      
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <button type="button" class="btn btn-primary" (click) ="activarCardsItems = !activarCardsItems" >
+        Mostrar Item</button>
+
+        <br><br>
+
+         <div *ngIf="activarCardsItems">
+        <md-grid-list cols="3" rowHeight="1:1">
+
+          <md-grid-tile>
+            <md-card class="example-card">
+              <md-card-header>
+                <md-card-title>Pollo Entero</md-card-title>
+              </md-card-header>
+              <img md-card-image src="../../../../assets/img/img1.jpg">
+              <md-card-content>
+                <p>
+                  1 Kg. = 20 Bs.
+                </p>
+              </md-card-content>
+              <md-card-actions>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#agregarModal" md-button>+Agregar</button>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleModal" md-button>Detalle</button>
+              </md-card-actions>
+            </md-card>
+          </md-grid-tile>
+
+        </md-grid-list>
+      </div>
+      
+      
+    </div>
+    
+  </div>
+
+</div>

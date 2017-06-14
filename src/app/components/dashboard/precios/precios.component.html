@@ -1,3 +1,171 @@
-<p>
-  precios works!
-</p>
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <button type="button" class="btn btn-primary" (click)="mostrarProductosPollo()">Pollo</button>
+      <br><br>
+
+      <div *ngIf="activarProductosPollo">
+        <md-grid-list cols="3" rowHeight="1:1">
+
+          <md-grid-tile>
+            <md-card class="example-card">
+              <md-card-header>
+                <md-card-title>Pollo Entero</md-card-title>
+              </md-card-header>
+              <img md-card-image src="../../../../assets/img/img1.jpg">
+              <md-card-content>
+                <p>
+                  1 Kg. = 20 Bs.
+                </p>
+              </md-card-content>
+              <md-card-actions>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#agregarModal" md-button>+Agregar</button>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleModal" md-button>Detalle</button>
+              </md-card-actions>
+            </md-card>
+          </md-grid-tile>
+
+          
+
+        </md-grid-list>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <button type="button" class="btn btn-primary" (click)="mostrarProductosCarneRes()">Carne Res</button>
+      <br><br>
+
+      <div *ngIf="activarProductosCarneRes">
+        <md-grid-list cols="3" rowHeight="1:1">
+
+          <md-grid-tile>
+            <md-card class="example-card">
+              <md-card-header>
+                <md-card-title>Pollo Entero</md-card-title>
+              </md-card-header>
+              <img md-card-image src="../../../../assets/img/img1.jpg">
+              <md-card-content>
+                <p>
+                  1 Kg. = 20 Bs.
+                </p>
+              </md-card-content>
+              <md-card-actions>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#agregarModal" md-button>+Agregar</button>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleModal" md-button>Detalle</button>
+              </md-card-actions>
+            </md-card>
+          </md-grid-tile>
+
+          
+
+        </md-grid-list>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <button type="button" class="btn btn-primary" (click)="mostrarProductosCarneCerdo()">Carne Cerdo</button>
+      <br><br>
+
+      <div *ngIf="activarProductosCarneCerdo">
+        <md-grid-list cols="3" rowHeight="1:1">
+
+          <md-grid-tile>
+            <md-card class="example-card">
+              <md-card-header>
+                <md-card-title>Pollo Entero</md-card-title>
+              </md-card-header>
+              <img md-card-image src="../../../../assets/img/img1.jpg">
+              <md-card-content>
+                <p>
+                  1 Kg. = 20 Bs.
+                </p>
+              </md-card-content>
+              <md-card-actions>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#editarPrecioModal" md-button>Editar Precio</button>
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detallePrecioModal" md-button>Detalle</button>
+              </md-card-actions>
+            </md-card>
+          </md-grid-tile>
+
+          
+
+        </md-grid-list>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal Detalle -->
+<div class="modal fade" id="detallePrecioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">Detalle</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Nombre del producto</h2> <br>
+              <h5> <strong> Precio: </strong> Precio por unidad </h5>  <br>
+              <h5> <strong> Cantidad Disponible: </strong> Cantidad </h5> <br>
+              <h5> <strong> Descripcion: </strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, quibusdam temporibus optio voluptatem corrupti laudantium sapiente veritatis voluptate vel distinctio quae facere provident, doloribus voluptatibus neque consectetur dolorem, necessitatibus in! </h5> <br>
+            
+          </div>
+        </div>
+
+        <div class="row">
+          <img src="../../../../assets/img/img1.jpg" style="width:100%; height:100% " alt="">
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Precio -->
+<div class="modal fade" id="editarPrecioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Cantidad:</label>
+            <input type="number" class="form-control" id="recipient-name">
+          </div>
+          <div>
+            <h4>Precio por Kg: 20 Bs</h4>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>

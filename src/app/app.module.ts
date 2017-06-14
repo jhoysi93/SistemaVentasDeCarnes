@@ -33,6 +33,12 @@ import {MdCardModule} from '@angular/material';
 //grid
 import {MdGridListModule} from '@angular/material';
 
+//firebase
+import { AngularFireModule } from 'angularfire2';
+import { environment } from './configuracion/Firebase-config';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
+
 
 
 @NgModule({
@@ -59,7 +65,10 @@ import {MdGridListModule} from '@angular/material';
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MdCardModule,
-    MdGridListModule
+    MdGridListModule,
+    AngularFireModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   providers: [
     Auth,

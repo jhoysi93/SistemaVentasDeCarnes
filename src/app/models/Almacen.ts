@@ -3,7 +3,7 @@ import { Item } from '../models/Item';
 
 export class Almacen {
 
-    constructor( private nombre: string, private items: Item[]){
+    constructor( private nombre: string, private items?: Item[]){
 
     }
 

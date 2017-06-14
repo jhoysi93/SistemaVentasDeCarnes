@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CobrosComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit() {

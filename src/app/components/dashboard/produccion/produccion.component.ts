@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProduccionComponent implements OnInit {
 
+  activarFormAgregarItem: boolean = false;
+  activarCardsItems: boolean = false;
   constructor() { }
 
   ngOnInit() {

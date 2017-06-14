@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlmacenesComponent implements OnInit {
 
+  activarAgregarAlmacen:boolean = false;
+
   constructor() { }
 
   ngOnInit() {

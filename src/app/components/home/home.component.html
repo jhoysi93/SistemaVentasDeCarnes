@@ -53,5 +53,7 @@
       temporibus eveniet cupiditate! Sunt animi numquam, magni veniam, eos unde perferendis?
     </p>
 
+    <h1 *ngFor="let item of items | async">{{ item.$value }}</h1>
+
   </div>
 </div>
