@@ -2,7 +2,8 @@
 
 export class Usuario {
 
-    constructor( private nombre: string, private correo: string, private tipoUsuario: string, private idUsuario: string ){
+    constructor( private nombre: string, 
+                private correo: string, private tipoUsuario: string, private idUsuario: string ){
 
     }
 

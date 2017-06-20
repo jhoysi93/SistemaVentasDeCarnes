@@ -2,7 +2,7 @@
 
 export class Cliente {
 
-    constructor( private nombre: string, private nit: string, private direccion: string, private telefono: string ){
+    constructor( private nombre: string, private nit: string ){
 
     }
 
@@ -12,10 +12,12 @@ export class Cliente {
      public getNit (): string {
         return this.nit;
     }
-     public getDireccion(): string {
-        return this.direccion;
+
+    public setNombre(nombre:string){
+        this.nombre = nombre;
     }
-     public getTelefono (): string {
-        return this.telefono;
+
+    public setNit(nit:string){
+        this.nit = nit;
     }
 }

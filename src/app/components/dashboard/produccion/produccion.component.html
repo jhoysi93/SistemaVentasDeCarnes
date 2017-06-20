@@ -7,30 +7,60 @@
       
       <br><br>
 
-        <form *ngIf="activarFormAgregarItem">
+        <form [formGroup]="formatoItem" (ngSubmit)="guardarItem()" *ngIf="activarFormAgregarItem">
         <div class="form-group">
           <label for="formGroupExampleInput">Nombre Item</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nit Cliente">
-        </div>
-
-        <div class="form-group">
-          <label for="formGroupExampleInput">Codigo Item</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nombre CLiente">
+          <input type="text" 
+                 class="form-control" 
+                 id="formGroupExampleInput" 
+                 placeholder="Ingrese Nit Cliente"
+                 [(ngModel)]="item._nombre"
+                 name="nombre"
+                 formControlName="nombre">
         </div>
 
         <div class="form-group">
           <label for="formGroupExampleInput">Cantidad</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nombre CLiente">
+          <input type="text" 
+                 class="form-control" 
+                 id="formGroupExampleInput" 
+                 placeholder="Ingrese Nombre CLiente"
+                 [(ngModel)]="item._cantidad"
+                 name="cantidad"
+                 formControlName="cantidad">
         </div>
 
         <div class="form-group">
           <label for="formGroupExampleInput">Detalle</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nombre CLiente">
+          <input type="text" 
+                 class="form-control" 
+                 id="formGroupExampleInput" 
+                 placeholder="Ingrese Nombre CLiente"
+                 [(ngModel)]="item._detalle"
+                 name="detalle"
+                 formControlName="detalle">
         </div>
 
         <div class="form-group">
           <label for="formGroupExampleInput">Tipo Almacen</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nombre CLiente">
+          <input type="text" 
+                 class="form-control" 
+                 id="formGroupExampleInput" 
+                 placeholder="Ingrese Nombre CLiente"
+                 [(ngModel)]="item._tipoAlmacen"
+                 name="tipoAlmacen"
+                 formControlName="tipoAlmacen">
+        </div>
+
+        <div class="form-group">
+          <label for="formGroupExampleInput">Imagen</label>
+          <input type="text" 
+                 class="form-control" 
+                 id="formGroupExampleInput" 
+                 placeholder="Ingrese Nombre CLiente"
+                 [(ngModel)]="item._imagen"
+                 name="imagen"
+                 formControlName="imagen">
         </div>
 
       </form>

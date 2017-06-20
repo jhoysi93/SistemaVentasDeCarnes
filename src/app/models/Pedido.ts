@@ -2,15 +2,16 @@ import { Item } from '../models/Item';
 
 export class Pedido {
 
-    constructor( private idPedido: string, private idUsuario: string,
-                 private nitCliente: string, private items:Item[], private total: string, 
-                 private exitoso: boolean ){
+    constructor( private idUsuario: string,
+                 private nitCliente: string, 
+                 private items:Item[], 
+                 private total: number, 
+                 private exitoso: boolean,
+                 private borrado?:boolean ){
 
     }
 
-    public getIdPedido (): string {
-        return this.idPedido;
-    }
+ 
      public getIdUsuario (): string {
         return this.idUsuario;
     }
@@ -20,7 +21,7 @@ export class Pedido {
      public getItems(): Item[] {
         return this.items;
     }
-     public getTotal (): string {
+     public getTotal (): number {
         return this.total;
     }
     public getExitoso (): boolean {

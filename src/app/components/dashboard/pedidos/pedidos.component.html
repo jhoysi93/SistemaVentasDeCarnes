@@ -5,79 +5,83 @@
   <div class="row">
     <div class="col-md-9">
 
-      <form>
+      <form [formGroup]="formatoCliente" (ngSubmit)="guardarPedido()">
         <div class="form-group">
-          <label for="formGroupExampleInput">Nit Cliente</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nit Cliente">
+          <label for="formGroupExampleInput">Nombre Cliente</label>
+          <input type="text" 
+                 [(ngModel)]="cliente.nombre" 
+                 class="form-control" 
+                 placeholder="Ingrese Nombre Cliente"
+                 formControlName="nombre" 
+                 name="nombre">
         </div>
 
         <div class="form-group">
-          <label for="formGroupExampleInput">Nombre Cliente</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nombre CLiente">
+          <label for="formGroupExampleInput">Nit Cliente</label>
+          <input type="text" 
+                 class="form-control" 
+                 placeholder="Ingrese nit Cliente" 
+                 [(ngModel)]="cliente.nit"
+                 formControlName="nit" 
+                 name="nit">
         </div>
+        <br>
+        <table class="table" *ngIf="listItemsPedido.length > 0">
+          <thead>
+            <tr>
+              <th class="bg-primary" style="color: white">#</th>
+              <th class="bg-primary" style="color: white">Producto</th>
+              <th class="bg-primary" style="color: white">Precio Unidad</th>
+              <th class="bg-primary" style="color: white">Cantidad</th>
+              <th class="bg-primary" style="color: white">Precio Total</th>
+              <th class="bg-primary" style="color: white">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listItemsPedido ; let i = index">
+              <th scope="row">{{ i+1 }}</th>
+              <td>{{ item.nombre }}</td>
+              <td>{{ item.precio }}</td>
+              <td>{{ cantidad }}</td>
+              <td>{{ item.precio * cantidad }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <h3>Total de la compra: {{ total }}</h3>
+
+        <button type="submit" class="btn btn-primary">Guardar Pedido</button>
 
       </form>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="bg-primary" style="color: white">#</th>
-            <th class="bg-primary" style="color: white">Producto</th>
-            <th class="bg-primary" style="color: white">Cantidad</th>
-            <th class="bg-primary" style="color: white">Precio</th>
-            <th class="bg-primary" style="color: white">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-        <br>
-      <h3>Total de la compra: </h3>
+
 
     </div>
   </div>
-
+<br><br>
   <div class="row">
     <div class="col-md-12">
 
       <button type="button" class="btn btn-primary" (click)="mostrarProductos()">Productos</button>
       <br><br>
 
-      <div *ngIf="activarProductos">
-        <md-grid-list cols="3" rowHeight="1:1">
+      <div *ngIf="activarProductos && listItems.length > 0" >
+        <md-grid-list cols="3" rowHeight="1:1" >
 
-          <md-grid-tile>
+          <md-grid-tile *ngFor="let item of listItems">
             <md-card class="example-card">
               <md-card-header>
-                <md-card-title>Pollo Entero</md-card-title>
+                <md-card-title > {{ item.nombre | uppercase }} </md-card-title>
               </md-card-header>
               <img md-card-image src="../../../../assets/img/img1.jpg">
               <md-card-content>
                 <p>
-                  1 Kg. = 20 Bs.
+                  {{ item.precio }}
                 </p>
               </md-card-content>
               <md-card-actions>
-                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#agregarModal" md-button>+Agregar</button>
-                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleModal" md-button>Detalle</button>
+                <button class="btn btn-outline-primary" (click)="getKeyItem(item.$key)" data-toggle="modal" data-target="#agregarModal" md-button>+Agregar</button>
+                <button class="btn btn-outline-primary" (click)="getKeyItem(item.$key)" data-toggle="modal" data-target="#detalleModal" md-button>Detalle</button>
               </md-card-actions>
             </md-card>
           </md-grid-tile>
@@ -85,9 +89,15 @@
         </md-grid-list>
       </div>
 
+
     </div>
   </div>
 
+      <div class="row" *ngIf="listItems.length == 0 && !activarProductos" >
+
+        <h1>No hay datos que mostrar</h1>
+        
+      </div>
 </div>
 
 <!-- Modal Detalle -->
@@ -101,21 +111,21 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
         <div class="row">
           <div class="col-md-12">
-            <h2>Nombre del producto</h2> <br>
-              <h5> <strong> Precio: </strong> Precio por unidad </h5>  <br>
-              <h5> <strong> Cantidad Disponible: </strong> Cantidad </h5> <br>
-              <h5> <strong> Descripcion: </strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, quibusdam temporibus optio voluptatem corrupti laudantium sapiente veritatis voluptate vel distinctio quae facere provident, doloribus voluptatibus neque consectetur dolorem, necessitatibus in! </h5> <br>
-            
+            <h2>{{ itemDetalle.nombre | uppercase }}</h2> <br>
+            <h5> <strong> Precio por unidad : </strong> {{ itemDetalle.precio }} </h5> <br>
+            <h5> <strong> Cantidad Disponible: </strong> {{ itemDetalle.cantidad }} </h5> <br>
+            <h5> <strong> Descripcion: </strong> {{ itemDetalle.descripcion }} </h5> <br>
+
           </div>
         </div>
 
         <div class="row">
           <img src="../../../../assets/img/img1.jpg" style="width:100%; height:100% " alt="">
         </div>
-        
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -131,7 +141,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #cerrarAgregar>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -139,16 +149,16 @@
         <form>
           <div class="form-group">
             <label for="recipient-name" class="form-control-label">Cantidad:</label>
-            <input type="number" class="form-control" id="recipient-name">
+            <input type="number" class="form-control" id="cantidad" [(ngModel)]="cantidad" name="cantidad">
           </div>
           <div>
-            <h4>Precio por Kg: 20 Bs</h4>
+            <h4>Precio por Kg: {{ itemDetalle.precio }} Bs</h4>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
+        <button type="button" class="btn btn-primary" (click) = "mandarATabla()" >Aceptar</button>
       </div>
     </div>
   </div>

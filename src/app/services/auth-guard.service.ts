@@ -9,14 +9,14 @@ import { Auth } from './auth.service';
 @Injectable()
 export class AuthGuardService implements CanActivate{
 
-  constructor(private auth:Auth,
-              private router:Router){
+  constructor(private auth: Auth,
+              private router: Router) {
    }
 
-canActivate( next:ActivatedRouteSnapshot, estate:RouterStateSnapshot  ){
+canActivate( next: ActivatedRouteSnapshot, estate: RouterStateSnapshot  ){
     //llamamos al metodo q tiene el servicio q devuelve si esta autenticado o no
     //regresa el estado del token true o false si esta autenticado o no
-    if(this.auth.authenticated()){
+    if(this.auth.authenticated()) {
       console.log("El guard paso");
       return true;
     }else{

@@ -12,11 +12,11 @@ export class PedidosService {
         this.pedidoPath = db.list('/pedidos');
     }
 
-    public addPedido(pedido:Pedido){
+    public addPedido(pedido: Pedido) {
        return this.pedidoPath.push(pedido);
     }
 
-    public getAllPedidos(){
+    public getAllPedidos() {
         return this.pedidoPath;
     }
 }

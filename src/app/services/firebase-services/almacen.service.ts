@@ -8,14 +8,14 @@ export class AlmacenService{
 
  private almacenPath: FirebaseListObservable<Almacen[]>;
     constructor(db: AngularFireDatabase) {
-        this.almacenPath = db.list('/almacen');
+        this.almacenPath = db.list('/almacenes');
     }
 
-     public addAlmacen(almacen:Almacen){
+     public addAlmacen(almacen: Almacen) {
        return this.almacenPath.push(almacen);
     }
 
-    public getAllAlmacen(){
+    public getAllAlmacen() {
         return this.almacenPath;
     }
 }
