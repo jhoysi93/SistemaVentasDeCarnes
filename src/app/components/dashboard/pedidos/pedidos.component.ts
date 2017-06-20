@@ -42,7 +42,7 @@ export class PedidosComponent implements OnInit {
                                auth.getProfile().user_metadata.tipo_user,
                                auth.getProfile().user_id );
     this.cliente = new Cliente('', '');
-    this.itemDetalle = new Item("", 1, "", 12, "");
+    this.itemDetalle = new Item("", 1, 12, "");
     this.formatoCliente = new FormGroup({
       'nombre': new FormControl('', [Validators.required]),
       'nit': new FormControl('', [Validators.required])
@@ -85,7 +85,7 @@ export class PedidosComponent implements OnInit {
   mandarATabla() {
     this.listItemsPedido.push(this.itemDetalle);
   
-    this.totales.push(this.cantidad * this.itemDetalle.precio);
+    //this.totales.push(this.cantidad * this.itemDetalle.getPrecio());
 
      this.totales.forEach(num => {
       this.total += num;
