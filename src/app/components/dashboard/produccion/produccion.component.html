@@ -3,7 +3,7 @@
   <div class="row"> 
     <div class="col-md-12">
 
-      <button type="button" class="btn btn-primary" (click) ="activarFormAgregarItem = !activarFormAgregarItem" >Agregar Nuevo Item</button>
+      <button type="button" class="btn btn-primary" (click) ="habilitarDesabilitar()" >Agregar Nuevo Item</button>
       
       <br><br>
 
@@ -13,19 +13,19 @@
           <input type="text" 
                  class="form-control" 
                  id="formGroupExampleInput" 
-                 placeholder="Ingrese Nit Cliente"
-                 [(ngModel)]="item._nombre"
+                 placeholder="Ingrese Nombre del item"
+                 [(ngModel)]="item.nombre"
                  name="nombre"
                  formControlName="nombre">
         </div>
 
         <div class="form-group">
           <label for="formGroupExampleInput">Cantidad</label>
-          <input type="text" 
+          <input type="number" 
                  class="form-control" 
                  id="formGroupExampleInput" 
-                 placeholder="Ingrese Nombre CLiente"
-                 [(ngModel)]="item._cantidad"
+                 placeholder="Ingrese cantidad"
+                 [(ngModel)]="item.cantidad"
                  name="cantidad"
                  formControlName="cantidad">
         </div>
@@ -35,22 +35,24 @@
           <input type="text" 
                  class="form-control" 
                  id="formGroupExampleInput" 
-                 placeholder="Ingrese Nombre CLiente"
-                 [(ngModel)]="item._detalle"
+                 placeholder="Ingrese detalle"
+                 [(ngModel)]="item.detalle"
                  name="detalle"
                  formControlName="detalle">
         </div>
+        
 
-        <div class="form-group">
+        <div class="form-group" >
           <label for="formGroupExampleInput">Tipo Almacen</label>
 
           <select class="form-control" 
                   type="text" 
-                  [(ngModel)]="item._tipoAlmacen"
+                  [(ngModel)]="item.tipoAlmacen"
                   name="tipoAlmacen"
                   formControlName="tipoAlmacen" >
-                <option *ngFor="let almacen of listAlmacenes" [value]="almacen._nombre">{{ almacen._nombre }}</option>
+                <option *ngFor="let almacen of listAlmacenes" [value]="almacen.nombre">{{ almacen.nombre }} </option>
           </select>
+
         </div>
 
         <div class="form-group">
@@ -58,14 +60,14 @@
           <input type="file" 
                  class="form-control" 
                  id="formGroupExampleInput" 
-                 placeholder="Ingrese Nombre CLiente"
-                 [(ngModel)]="item._imagen"
+                 placeholder="Ingrese imagen"
                  name="imagen"
                  (change) = "cargaImagen($event)"
                  formControlName="imagen">
         </div>
 
-        <button [disabled] ="!formatoItem.valid" type="submit" class="btn btn-primary"> Guardar Item</button>
+        <button [disabled] ="!formatoItem.valid" type="submit" class="btn btn-primary" *ngIf="btnGuardarItem"> Guardar Item</button>
+        <button [disabled] ="!formatoItem.valid" type="button" (click)= "actualizarItem()" *ngIf="btnActualizarItem" class="btn btn-primary"> Guardar Cambios Item</button>
         <br><br>
       </form>
       
@@ -87,23 +89,26 @@
           <div *ngFor="let item of listItems ">
             
          
-             <md-grid-tile *ngIf="!item._borrado">
+             <md-grid-tile *ngIf="!item.borrado">
 
                   <md-card class="example-card" >
+                    
                     <md-card-header>
-                      <md-card-title>{{ item._nombre | uppercase }}</md-card-title>
+                      <md-card-title style="padding-top:50px "><h3>{{ item.nombre | uppercase }}</h3></md-card-title>
                     </md-card-header>
-                    <img md-card-image style=" width:290px; height: 180px" [src]="item._imagen">
+                    <img md-card-image style=" width:290px; height: 180px" [src]="item.imagen">
                     <md-card-content>
                       <p>
-                        1 Kg. = {{ item._precio }}.
+                        Cantidad disponible = {{ item.cantidad }} piezas.<br>
+                        Almacen = {{item.tipoAlmacen}}
                       </p>
                     </md-card-content>
                     <md-card-actions>
-                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleProd" md-button (click) = "setDetalle(item.$key)">Detalle</button>
-                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleModal" md-button (click) = "setEdit(item.$key)">Editar</button>
-                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleModal" md-button (click) = "setRemove(item.$key)">Eliminar</button>
+                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleProd" md-button (click) = "setDetalleKey(item.$key)">Detalle</button>
+                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleModal" md-button (click) = "setEditKey(item.$key)">Editar</button>
+                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEliminar" md-button (click) = "setRemoveKey(item.$key)">Eliminar</button>
                     </md-card-actions>
+                    <br>
                   </md-card>
 
             </md-grid-tile>
@@ -134,16 +139,17 @@
 
         <div class="row">
           <div class="col-md-12">
-            <h2>{{ itemAuxiliar._nombre | uppercase }}</h2> <br>
-            <h5> <strong> Precio por unidad : </strong> {{ itemAuxiliar._precio }} </h5> <br>
-            <h5> <strong> Cantidad Disponible: </strong> {{ itemAuxiliar._cantidad }} </h5> <br>
-            <h5> <strong> Descripcion: </strong> {{ itemAuxiliar._detalle }} </h5> <br>
+            <h2>{{ itemAuxiliar.nombre | uppercase }}</h2> <br>
+            <h5> <strong> Precio por unidad : </strong> {{ itemAuxiliar.precio }} </h5> <br>
+            <h5> <strong> Cantidad Disponible: </strong> {{ itemAuxiliar.cantidad }} </h5> <br>
+            <h5> <strong> Descripcion: </strong> {{ itemAuxiliar.detalle }} </h5> <br>
+            <h5> <strong> Almacen: </strong> {{ itemAuxiliar.tipoAlmacen }} </h5> <br>
 
           </div>
         </div>
 
         <div class="row">
-          <img [src]="itemAuxiliar._imagen" style="width:100%; height:100% " alt="">
+          <img [src]="itemAuxiliar.imagen" style="width:100%; height:100% " alt="">
         </div>
 
       </div>
@@ -154,4 +160,24 @@
   </div>
 </div>
 
+<!-- Modal Eliminar-->
+<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+        <button type="button" #cerraModalEliminar class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Seguro que desea eliminar el item?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="eliminarItem()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
 

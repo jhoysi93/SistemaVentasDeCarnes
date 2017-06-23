@@ -37,6 +37,10 @@ h5 {
   font-family: 'Slabo 27px', serif;
 }
 
+.textTituloCard{
+  font-family: 'Slabo 27px', serif;
+}
+
 h2:hover{
     color:black;
 }

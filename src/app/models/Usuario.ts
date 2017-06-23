@@ -2,21 +2,8 @@
 
 export class Usuario {
 
-    constructor( private nombre: string, 
-                private correo: string, private tipoUsuario: string, private idUsuario: string ){
+    constructor( public  nombre: string, 
+                public  correo: string, public  tipoUsuario: string, public  idUsuario: string ){
 
-    }
-
-    public getNombre (): string {
-        return this.nombre;
-    }
-     public getCorreo (): string {
-        return this.correo;
-    }
-     public getTipoUsuario(): string {
-        return this.tipoUsuario;
-    }
-     public getIdUsuario (): string {
-        return this.idUsuario;
     }
 }

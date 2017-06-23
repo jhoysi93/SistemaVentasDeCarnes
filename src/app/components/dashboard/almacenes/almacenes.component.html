@@ -1,67 +1,101 @@
 <div class="container">
-  
+
   <div class="row">
     <div class="col-md-12">
 
 
-      <button type="button" class="btn btn-primary" (click)="activarAgregarAlmacen = !activarAgregarAlmacen" >Agregar Almacen</button>
-      
+      <button type="button" class="btn btn-primary" (click)="activarAgregarAlmacen = !activarAgregarAlmacen">Agregar Almacen</button>
+
       <br><br>
 
-        <form [formGroup]="formatoAlmacen" (ngSubmit)="guardarAlmacen()" *ngIf="activarAgregarAlmacen">
+      <form [formGroup]="formatoAlmacen" (ngSubmit)="guardarAlmacen()" *ngIf="activarAgregarAlmacen">
         <div class="form-group">
           <label for="formGroupExampleInput">Nombre Almacen</label>
-          <input type="text" 
-                 class="form-control" 
-                 id="formGroupExampleInput" 
-                 placeholder="Ingrese Nit Cliente"
-                 [(ngModel)]="almacen.nombre"
-                 name="nombre"
-                 formControlName="nombre">
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese Nit Cliente" [(ngModel)]="almacen.nombre"
+            name="nombre" formControlName="nombre">
         </div>
 
-        <button [disabled] ="!formatoAlmacen.valid" type="submit" class="btn btn-primary">Guardar Almacen</button>
+        <button [disabled]="!formatoAlmacen.valid" type="submit" class="btn btn-primary">Guardar Almacen</button>
 
 
       </form>
-      
-    </div>
-  </div>
-
-  <div class="row" *ngIf="listAlmacenes">
-    <div class="col-md-12" *ngFor="let almacen of listAlmacenes ; let i = index" >
-
-      <h1>{{ almacen._nombre | uppercase }}</h1>
-      
-      <table class="table table-striped" *ngIf="almacen._items">
-        <thead>
-          <tr>
-            <th class="bg-primary" style="color: white" >#</th>
-            <th class="bg-primary" style="color: white" >Nombre Item</th>
-            <th class="bg-primary" style="color: white" >Precio</th>
-            <th class="bg-primary" style="color: white" >Cantidad</th>
-            <th class="bg-primary" style="color: white" >Detalle</th>
-            <th class="bg-primary" style="color: white" >Mover Item</th>
-          </tr>
-        </thead>
-
-        <tbody *ngFor="let item of almacen._items">
-          <tr>
-            <th scope="row">{{ i+1 }}</th>
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.precio }}</td>
-            <td>{{ item.cantidad }}</td>
-            <td>{{ item.detalle }}</td>
-            <td>
-              <select class="form-control" type="text" name="prioridad" >
-                <option *ngFor="let almac of listAlmacenes" [value]="almac.nombre">{{ almac._nombre }}</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
 
     </div>
   </div>
 
+  <div class="row" *ngIf="listAlmacenes.length > 0">
+    <div class="col-md-12" *ngFor="let almacen of listAlmacenes">
+
+      <h1>{{ almacen.nombre | uppercase }}</h1>
+
+
+            <table class="table table-striped" *ngIf="listItems.length > 0" >
+              <thead>
+                <tr>
+                  <th class="bg-primary" style="color: white">Nombre Item</th>
+                  <th class="bg-primary" style="color: white">Precio</th>
+                  <th class="bg-primary" style="color: white">Cantidad</th>
+                  <th class="bg-primary" style="color: white">Detalle</th>
+                  <th class="bg-primary" style="color: white">Mover Item</th>
+                </tr>
+              </thead>
+
+              <tbody *ngFor="let item of listItems">
+                <tr *ngIf="almacen.nombre === item.tipoAlmacen &&  item.borrado ==false">
+                  <td>{{ item.nombre }}</td>
+                  <td>{{ item.precio }}</td>
+                  <td>{{ item.cantidad }}</td>
+                  <td>{{ item.detalle }}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCambiarAlmacen"
+                    (click) = "setKeyCambiarAlmacen(item.$key)">
+                      Cambiar Almacen
+                    </button>
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal Cambiar Almacen-->
+<div class="modal fade" id="modalCambiarAlmacen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cambiar Almacen</h5>
+        <button #cerrarModalAlmacen type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>{{item.nombre | uppercase}}</h4>
+        <h5>Almacen actual: {{item.tipoAlmacen | uppercase}}</h5>
+        <h4>Cantidad Disponible: {{item.cantidad}}</h4>
+        <input #cantidadPorMover class="form-control" type="number" name="" value="" placeholder="Ingrese Cantidad">
+
+        <select 
+            type="text"
+            
+            name="tipoAlmacen" 
+            #tipoAlmacen
+            >
+               <option   *ngFor="let alm of listAlmacenes" 
+                [value]="alm.nombre"> {{ alm.nombre }} 
+               </option>  
+                  
+
+        </select>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" (click) = "guardarCambiosAlmacen(cantidadPorMover.value, tipoAlmacen.value)" class="btn btn-primary">Cambiar Almacen</button>
+      </div>
+    </div>
+  </div>
 </div>
