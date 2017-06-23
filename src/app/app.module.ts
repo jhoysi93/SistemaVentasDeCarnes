@@ -14,6 +14,7 @@ import { ROUTES_ROUTING } from './app.routes';
 //services
 import { Auth } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { SaveinstancePedido } from './services/firebase-services/saveInstancePedido.service';
 
 //components
 import { MenuLateralComponent } from './components/dashboard/menu-lateral/menu-lateral.component';
@@ -74,7 +75,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
   ],
   providers: [
     Auth,
-    AuthGuardService
+    AuthGuardService,
+    SaveinstancePedido
   ],
   bootstrap: [AppComponent]
 })

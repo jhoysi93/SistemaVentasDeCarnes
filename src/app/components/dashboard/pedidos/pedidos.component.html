@@ -21,6 +21,7 @@
                  class="form-control" 
                  placeholder="Ingrese nit Cliente" 
                  formControlName="nit" 
+                 [(ngModel)]="saveIntance.getPedido().nitCliente"
                  name="nit">
         </div>
         <br>
@@ -35,20 +36,20 @@
               <th class="bg-primary" style="color: white">Opciones</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1 </th>
-              <td>nombre </td>
-              <td>precio </td>
-              <td>cantidad </td>
-              <td>precio </td>
+          <tbody *ngIf="listDespachoItems">
+            <tr *ngFor="let despacho of listDespachoItems; let i = index">
+              <th scope="row">{{ i+1 }} </th>
+              <td>{{ despacho.item.nombre }} </td>
+              <td>{{ despacho.item.precio }} </td>
+              <td>{{ despacho.item.cantidad }}</td>
+              <td>{{ despacho.item.cantidad * despacho.item.precio }}</td>
             </tr>
           </tbody>
         </table>
         <br>
-        <h3>Total de la compra:  total </h3>
+        <h3>Total de la compra:  {{ total }} </h3>
 
-        <button type="submit" class="btn btn-primary">Guardar Pedido</button>
+        <button [disabled]="!formatoCliente.valid || listDespachoItems.length < 1" type="submit" class="btn btn-primary">Guardar Pedido</button>
 
       </form>
 
@@ -80,12 +81,13 @@
                     <md-card-content>
                       <p>
                         Cantidad disponible = {{ item2.cantidad }} kilos.<br>
-                        Almacen = {{item2.tipoAlmacen}}
+                        Almacen = {{item2.tipoAlmacen}} <br>
+                        Precio por Kg. = {{item2.precio}}
                       </p>
                     </md-card-content>
                     <md-card-actions>
-                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleModalPedido" md-button (click) = "setDetalleKey(item.$key)">Detalle</button>
-                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#agregarModalPedido" md-button (click) = "setEditKey(item.$key)">Agregar</button>
+                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#detalleModalPedido" md-button (click) = "setDetalleKey(item2.$key)">Detalle</button>
+                      <button class="btn btn-outline-primary" data-toggle="modal" data-target="#agregarModalPedido" md-button (click) = "setEditKey(item2.$key)">Agregar</button>
                     </md-card-actions>
                     <br>
                   </md-card>
@@ -157,7 +159,7 @@
         <form>
           <div class="form-group">
             <label for="recipient-name" class="form-control-label">Cantidad:</label>
-            <input #cantidadItems type="number" class="form-control" id="cantidad" [(ngModel)]="cantidad" name="cantidad">
+            <input #cantidadItems type="number" class="form-control" id="cantidad"  name="cantidad">
           </div>
           <div>
             <h4>Precio por Kg: {{ item.precio }} Bs</h4>
@@ -166,7 +168,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cerrar</button>
-        <button type="button" class="btn btn-primary" (click) = "agregarItems(cantidad.value)" >Aceptar</button>
+        <button type="button" class="btn btn-primary" (click) = "agregarItems(cantidadItems.value)" >Aceptar</button>
       </div>
     </div>
   </div>
