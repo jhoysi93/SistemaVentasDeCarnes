@@ -51,11 +51,11 @@ export class ItemService {
             let tareaSubidaNuevaImagen = this.storageRef.child('/imgenes/' + file.name).put( file ).then( (imagen)=>{
                 item.imagen = imagen.downloadURL;
                 item.borrado = false;
-                this.db.object('/items/' + key).update(item);
+                this.db.list('/items/').update(key,item);
             });
         }else{
 
-            return this.db.object('/items/' + key).update(item);
+            return this.db.list('/items/').update(key,item);
         }
 
     }
@@ -72,7 +72,6 @@ export class ItemService {
 
         const alm = this.db.list('/items', {
             query: {
-                //faltaba este para q busq la propiedad nombre en la lista de objetos 
                 orderByChild: 'nombre',
                 equalTo: itemRestado.nombre
             }

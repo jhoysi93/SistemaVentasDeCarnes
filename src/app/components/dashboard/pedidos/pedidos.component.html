@@ -12,12 +12,13 @@
                  class="form-control" 
                  placeholder="Ingrese Nombre Cliente"
                  formControlName="nombre" 
+                 [(ngModel)]="saveIntance.nombre"
                  name="nombre">
         </div>
 
         <div class="form-group">
           <label for="formGroupExampleInput">Nit Cliente</label>
-          <input type="text" 
+          <input type="number" 
                  class="form-control" 
                  placeholder="Ingrese nit Cliente" 
                  formControlName="nit" 
@@ -43,6 +44,9 @@
               <td>{{ despacho.item.precio }} </td>
               <td>{{ despacho.item.cantidad }}</td>
               <td>{{ despacho.item.cantidad * despacho.item.precio }}</td>
+              <td>
+                <button type="button" class="btn btn-primary" (click)="eliminarItemTabla(despacho)">Elim</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -52,9 +56,10 @@
         <button [disabled]="!formatoCliente.valid || listDespachoItems.length < 1" type="submit" class="btn btn-primary">Guardar Pedido</button>
 
       </form>
+      <br>
 
-
-
+      <button style="margin-left: 675px" type="buttn" class="btn btn-primary" (click) = "cancelarPedido()" >Cancelar Pedido</button>
+      
     </div>
   </div>
 <br><br>

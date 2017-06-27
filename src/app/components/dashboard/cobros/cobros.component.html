@@ -7,32 +7,40 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th class="bg-primary" style="color: white" >#</th>
-            <th class="bg-primary" style="color: white" >Nit Cliente</th>
-            <th class="bg-primary" style="color: white" >Nombre CLiente</th>
-            <th class="bg-primary" style="color: white" >Precio Total</th>
-            <th class="bg-primary" style="color: white" >Estado</th>
-            <th class="bg-primary" style="color: white" >Opciones</th>
+            <th class="bg-primary" style="color: white">Nombre Cliente</th>
+            <th class="bg-primary" style="color: white">Nit Cliente</th>
+            <th class="bg-primary" style="color: white">DespachoItems</th>
+            <th class="bg-primary" style="color: white">Total</th>
+            <th class="bg-primary" style="color: white">Descuento</th>
+            <th class="bg-primary" style="color: white">Total Final</th>
+            <th class="bg-primary" style="color: white">Venta finalizada</th>
+            <th class="bg-primary" style="color: white">Opciones</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+        <tbody *ngFor="let pedido of listPedidos ; let i = index">
+          <tr *ngIf="!pedido.borrado && pedido.despachoExitoso  && !pedido.ventaExitosa">
+            <td>{{ pedido.nombreCliente }}</td>
+            <td>{{ pedido.nitCliente }}</td>
+            <td>
+                <div *ngFor="let desItem of pedido.despachoItems">
+                  <h6>{{ desItem.item.nombre }}: {{ desItem.item.cantidad }}</h6>
+              </div>
+            </td>
+            <td>{{ pedido.total }} Bs.</td>
+            <td>{{ pedido.descuento }} %</td>
+            <td>{{ pedido.totalFinal | number:'.1-2' }} Bs.</td>
+            <td>{{ pedido.ventaExitosa}}</td>
+            <td>
+              <div>
+                <div class="row">
+                  <button style="margin-bottom: 10px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#descuentoPrecioModal" (click)="setKeyPedido(pedido.$key)" >Agregar Descuento</button>
+                </div>
+
+                <div class="row">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ventaExitosaModal" (click)="setKeyPedido(pedido.$key)"  >Venta Exitosa</button>
+                </div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -41,4 +49,62 @@
     </div>
   </div>
 
+
+</div>
+
+<!-- Modal Descuento Precio -->
+<div class="modal fade" id="descuentoPrecioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Descuento</h5>
+        <button type="button" #cerrarDescuentoPrecio class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Precio por kilo:</label>
+            <input #descuento type="number" class="form-control" id="recipient-name">
+          </div>
+          <div>
+            <h4>Precio Total por Kg: {{ pedido.total }}</h4>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click) = "descontarPrecio(descuento.value)">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal venta Exitosa -->
+<div class="modal fade" id="ventaExitosaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalle</h5>
+        <button type="button" #cerrarVentaExitosa class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <input #detallePedido type="text" class="form-control" id="recipient-name">
+          </div>
+          <div>
+            <h4>Detalle de la venta: </h4>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="realizarVentaExitosa(detallePedido.value)">Aceptar</button>
+      </div>
+    </div>
+  </div>
 </div>

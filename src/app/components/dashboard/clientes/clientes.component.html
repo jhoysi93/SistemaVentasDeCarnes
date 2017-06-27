@@ -4,8 +4,8 @@
     <div class="col-md-12">
 
         <form class="form-inline">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          <input #nitCliente class="form-control mr-sm-2" type="number" placeholder="Search">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" (click)="buscarPorNit(nitCliente.value)" >Buscar por  nit</button>
         </form>
 
         <br><br>
@@ -13,32 +13,24 @@
         <table class="table table-striped">
         <thead>
           <tr>
-            <th class="bg-primary" style="color: white" >#</th>
-            <th class="bg-primary" style="color: white" >Nit Cliente</th>
-            <th class="bg-primary" style="color: white" >Nombre CLiente</th>
-            <th class="bg-primary" style="color: white" >Precio Total</th>
-            <th class="bg-primary" style="color: white" >Estado</th>
-            <th class="bg-primary" style="color: white" >Opciones</th>
+            <th class="bg-primary" style="color: white" >Nombre Cliente</th>
+            <th class="bg-primary" style="color: white" >Nit CLiente</th>
+            <th class="bg-primary" style="color: white" >Total Inicial</th>
+            <th class="bg-primary" style="color: white" >Porcentaje Descuento</th>
+            <th class="bg-primary" style="color: white" >Total Final</th>
+            <th class="bg-primary" style="color: white" >Detalle</th>
+            <th class="bg-primary" style="color: white" >Fecha</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+        <tbody *ngIf="listTransaccionesCliente.length > 0">
+          <tr *ngFor="let transaccion of listTransaccionesCliente">
+            <td>{{ transaccion.nombreCliente }}</td>
+            <td>{{ transaccion.nitCliente }}</td>
+            <td>{{ transaccion.totalAnterior }}</td>
+            <td>{{ transaccion.porcentajeDescsuento }}</td>
+            <td>{{ transaccion.totalFinal }}</td>
+            <td>{{ transaccion.detalle }}</td>
+            <td>{{ transaccion.date }}</td>
           </tr>
         </tbody>
       </table>

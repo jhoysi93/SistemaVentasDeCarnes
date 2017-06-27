@@ -8,32 +8,52 @@
         <thead>
           <tr>
             <th class="bg-primary" style="color: white" >#</th>
-            <th class="bg-primary" style="color: white" >Nit Cliente</th>
-            <th class="bg-primary" style="color: white" >Nombre CLiente</th>
-            <th class="bg-primary" style="color: white" >Precio Total</th>
-            <th class="bg-primary" style="color: white" >Estado</th>
+            <th class="bg-primary" style="color: white" >Nombre Cliente</th>
+            <th class="bg-primary" style="color: white" >Nit CLiente</th>
+            <th class="bg-primary" style="color: white" >Items</th>
+            <th class="bg-primary" style="color: white" >Costo Total</th>
+            <th class="bg-primary" style="color: white" >Estado Pedido</th>
             <th class="bg-primary" style="color: white" >Opciones</th>
+            
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody *ngFor="let pedido of listaPedidos">
+          <tr *ngIf="!pedido.borrado && !pedido.ventaExitosa">
             <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <td>{{pedido.nombreCliente}}</td>
+            <td>{{pedido.nitCliente}}</td>
+            <td>
+              <div *ngFor="let desItem of pedido.despachoItems">
+                  <h6>{{ desItem.item.nombre }}: {{ desItem.item.cantidad }}</h6>
+              </div>
+            </td>
+            <td>{{pedido.total}}</td>
+            <td>
+              <h6 *ngIf="pedido.despachoExitoso"> Pedido Listo </h6>
+              <h6 *ngIf="!pedido.despachoExitoso"> Pedido en proceso </h6>
+              
+              </td>
+            <td>
+              <div>
+                <div class="row">
+                  <button style="margin-bottom: 10px" *ngIf="!pedido.despachoExitoso" type="button" class="btn btn-primary" (click)="despacharPedido(pedido.$key, true)" >Despachar Pedido</button>
+                  
+                </div>
+
+                <div class="row">
+                  <button style="margin-bottom: 10px" *ngIf="pedido.despachoExitoso" type="button" class="btn btn-primary" (click)="despacharPedido(pedido.$key, false)" >Pedido en proceso</button>
+                </div>
+
+                <div class="row">
+                  <button type="button" class="btn btn-primary" (click)="eliminarPedido(pedido.$key)" >Eliminar</button>
+                </div>
+
+              </div>
+              
+            </td>
+            
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+      
         </tbody>
       </table>
 

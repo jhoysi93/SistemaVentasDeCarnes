@@ -5,9 +5,11 @@ import { Injectable } from '@angular/core';
 export class SaveinstancePedido{
 
     private pedido: Pedido;
+    public nombre: string = "";
 
-    public saveInstance(pedido: Pedido){
+    public saveInstance(pedido: Pedido, nombre:string){
         this.pedido = pedido;
+        this.nombre = nombre;
     }
 
     public getPedido(){
