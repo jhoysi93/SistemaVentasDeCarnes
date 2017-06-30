@@ -7,7 +7,6 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th class="bg-primary" style="color: white" >#</th>
             <th class="bg-primary" style="color: white" >Nombre Cliente</th>
             <th class="bg-primary" style="color: white" >Nit CLiente</th>
             <th class="bg-primary" style="color: white" >Items</th>
@@ -19,7 +18,6 @@
         </thead>
         <tbody *ngFor="let pedido of listaPedidos">
           <tr *ngIf="!pedido.borrado && !pedido.ventaExitosa">
-            <th scope="row">1</th>
             <td>{{pedido.nombreCliente}}</td>
             <td>{{pedido.nitCliente}}</td>
             <td>
@@ -35,6 +33,7 @@
               </td>
             <td>
               <div>
+                
                 <div class="row">
                   <button style="margin-bottom: 10px" *ngIf="!pedido.despachoExitoso" type="button" class="btn btn-primary" (click)="despacharPedido(pedido.$key, true)" >Despachar Pedido</button>
                   
@@ -62,3 +61,5 @@
   </div>
 
 </div>
+
+<hr>

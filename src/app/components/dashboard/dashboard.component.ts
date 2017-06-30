@@ -24,4 +24,5 @@ export class DashboardComponent implements OnInit {
     this.menuOpcion = event;
   }
 
+
 }

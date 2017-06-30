@@ -1,12 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild, OnChanges, OnDestroy, DoCheck } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-//models
+import * as jsPDF from 'jspdf';
+// models
 import { Cliente } from '../../../models/Cliente';
 import { Item } from '../../../models/Item';
 import { Pedido } from '../../../models/Pedido';
 import { Usuario } from '../../../models/Usuario';
 import { DespachoItems } from '../../../models/Despacho';
-//servicio
+// servicio
 import { SaveinstancePedido } from '../../../services/firebase-services/saveInstancePedido.service';
 import { ItemService } from '../../../services/firebase-services/item.service';
 import { PedidosService } from '../../../services/firebase-services/pedido.service';
@@ -27,15 +28,20 @@ export class PedidosComponent implements OnInit, OnChanges, DoCheck {
   @ViewChild('cerrarAgregar') closeModal: ElementRef;
   @ViewChild('cantidadItems') cantidadItems: ElementRef;
 
+
   private activarProductos: boolean = false;
   private formatoCliente: FormGroup;
   private listItems: Item[] = [];
   private itemKey: string = "";
   private item: Item = new Item("", 0, 0, "", "", "", false);
   private listDespachoItems: DespachoItems[] = [];
-  private pedido: Pedido = new Pedido("","", 0, this.listDespachoItems, 0,0,0, false, false, false);
+  private pedido: Pedido = new Pedido("", "", 0, this.listDespachoItems, 0, 0, 0, false, false, false);
   private total: number = 0;
   private pedidoSaveInstance: Pedido;
+  private nombreItemBuscar: string = "";
+  private itemsAux: Item[] = [];
+  private pdf: jsPDF = new jsPDF();
+  
 
 
   constructor(private itemSer: ItemService, private pedidoSer: PedidosService,
@@ -50,6 +56,7 @@ export class PedidosComponent implements OnInit, OnChanges, DoCheck {
   ngOnInit() {
     this.itemSer.getAllItems().subscribe((items) => {
       this.listItems = items;
+      this.itemsAux = items;
     });
 
     if (this.saveIntance.getPedido()) {
@@ -58,7 +65,6 @@ export class PedidosComponent implements OnInit, OnChanges, DoCheck {
       this.total = this.saveIntance.getPedido().total;
     }
 
-    this.formatoCliente.value.nombre = this.saveIntance.nombre;
   }
 
   ngDoCheck() {
@@ -74,10 +80,16 @@ export class PedidosComponent implements OnInit, OnChanges, DoCheck {
       false,
       false);
     this.saveIntance.saveInstance(this.pedidoSaveInstance, this.formatoCliente.value.nombre);
+    console.log("docheck");
+   // console.log(this.nombreItemBuscar);
+
+    this.buscarPorNombreItem();
   }
 
   ngOnChanges() {
     console.log("change");
+   // console.log(this.nombreItemBuscar);
+
   }
 
 
@@ -170,9 +182,46 @@ export class PedidosComponent implements OnInit, OnChanges, DoCheck {
     }
   }
 
-  guardarPedido() {
+  guardarPedido(tipoPedido: string) {
 
-    this.pedido.idUsuario = this.auth.getProfile().user_id;
+    if(tipoPedido == 'nuevoPedido'){
+      this.agregarNuevoPedido();
+      this.generarPdfPedido();
+    }else {
+
+    }
+  }
+
+  generarPdfPedido(){
+    console.log("PDFFFFF"+ this.pedido);
+    this.pdf.setFontSize(30);
+    this.pdf.text(90, 30, "Pedido");
+    this.pdf.rect(30,35, 150, 2 );
+    this.pdf.setFontSize(20);
+    this.pdf.text( 30, 45, `Id usuario ${this.pedido.idUsuario}`);
+    this.pdf.text(30, 60, `Nombre cliente: ${ this.pedido.nombreCliente}`);
+    this.pdf.text( 30, 75, `Nit cliente: ${ this.pedido.nitCliente}`);
+
+    this.pdf.text(30, 90,"Productos del pedido ");
+    this.pdf.text( 45, 105, "Productos: ");
+    this.pdf.text( 120, 105, "Cantidad: ");
+    
+    let distancia: number = 120;
+    this.pedido.despachoItems.forEach((item)=>{
+    this.pdf.setFontSize(15);
+      this.pdf.text(50, distancia,`${item.item.nombre}`);
+      this.pdf.text(125, distancia,`${item.item.cantidad}`);
+      distancia += 10;
+    });
+
+    this.pdf.save(`Pedido_cliente_nit_${this.pedido.nitCliente}.pdf`);
+
+  }
+
+  agregarNuevoPedido(){
+    console.log("PDFFFFF nuevo"+ this.pedido);
+
+    this.pedido.idUsuario = this.auth.getProfile().user_id; 
     this.pedido.nombreCliente = this.formatoCliente.value.nombre;
     this.pedido.nitCliente = this.formatoCliente.value.nit;
     this.pedido.despachoItems = this.listDespachoItems;
@@ -196,30 +245,60 @@ export class PedidosComponent implements OnInit, OnChanges, DoCheck {
   }
 
 
-  cancelarPedido(){
+  cancelarPedido() {
     this.formatoCliente.reset();
-    if (this.listDespachoItems.length > 0){
+    if (this.listDespachoItems.length > 0) {
       this.pedidoSer.cancelarPedido(this.listDespachoItems);
       this.listDespachoItems = [];
       this.total = 0;
     }
   }
 
-  eliminarItemTabla(despacho:DespachoItems){
-    let index:number = this.listDespachoItems.indexOf(despacho);
-    let cantidad:number = this.listDespachoItems[index].item.cantidad;
-    let key:string = this.listDespachoItems[index].keyItem;
-    let itemAux:any ;
+  eliminarItemTabla(despacho: DespachoItems) {
+    let index: number = this.listDespachoItems.indexOf(despacho);
+    let cantidad: number = this.listDespachoItems[index].item.cantidad;
+    let key: string = this.listDespachoItems[index].keyItem;
+    let itemAux: any;
     this.listDespachoItems.splice(index, 1);
-    this.itemSer.getItem(key).subscribe( (item)=>{
+    this.itemSer.getItem(key).subscribe((item) => {
       itemAux = item;
     });
-    setTimeout( ()=>{
+    setTimeout(() => {
       itemAux.cantidad += cantidad;
       this.itemSer.updateItem(key, itemAux, null);
     }, 1000);
 
   }
+
+
+
+  buscarPorNombreItem() {
+
+    if (this.nombreItemBuscar.length > 2) {
+      this.nombreItemBuscar = this.nombreItemBuscar.toLowerCase();
+      let itemsArrayEncontrados: Item[] = [];
+      for (let item of this.listItems) {
+        let nombreItem: string = item.nombre.toLowerCase();
+        if (item.nombre.indexOf(this.nombreItemBuscar) >= 0) {
+          itemsArrayEncontrados.push(item);
+        }
+        if (itemsArrayEncontrados.length > 0) {
+          this.listItems = itemsArrayEncontrados;
+        } else {
+          this.listItems = this.itemsAux;
+        }
+      }
+    } else {
+
+      this.listItems = this.itemsAux;
+    }
+  }
+
+
+  //recibirAEditarPedidoDespacho(keyPedido: string){
+  //  console.log("keyPedido");
+  //  console.log(keyPedido);
+  //}
 
 
 }

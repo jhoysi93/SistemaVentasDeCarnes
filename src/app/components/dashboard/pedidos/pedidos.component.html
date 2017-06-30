@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-md-9">
 
-      <form [formGroup]="formatoCliente" (ngSubmit)="guardarPedido()">
+      <form [formGroup]="formatoCliente" (ngSubmit)="guardarPedido('nuevoPedido')">
         <div class="form-group">
           <label for="formGroupExampleInput">Nombre Cliente</label>
           <input type="text" 
@@ -70,12 +70,18 @@
       <br><br>
 
       <div *ngIf="activarProductos && listItems.length > 0" >
+
+          <input class="form-control mr-sm-2" type="text" placeholder="Search Name" [(ngModel)]="nombreItemBuscar">
+          <br>
+          
+          <br>
+
         <md-grid-list cols="3" rowHeight="1:1" >
 
           <div *ngFor="let item2 of listItems ">
             
          
-             <md-grid-tile *ngIf="!item2.borrado">
+             <md-grid-tile *ngIf="!item2.borrado && item2.tipoAlmacen == 'ventas'">
 
                   <md-card class="example-card" >
                     

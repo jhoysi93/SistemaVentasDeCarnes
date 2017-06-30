@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Auth } from '../../../services/auth.service';
+
 
 @Component({
   selector: 'app-menu-lateral',
@@ -6,9 +8,15 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class MenuLateralComponent implements OnInit {
 
+    perfil:Object;
+
+
   @Output()eventMenu = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private _auth:Auth) {
+    this.perfil = this._auth.getProfile();
+
+   }
 
   ngOnInit() {
   }

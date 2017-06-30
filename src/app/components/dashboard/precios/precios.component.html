@@ -8,6 +8,10 @@
 
         <div *ngIf="listItems">
 
+           <input class="form-control mr-sm-2" type="text" placeholder="Search Name" [(ngModel)]="nombreItemBuscar">
+          <br>
+          <br>
+
         <md-grid-list cols="3" rowHeight="1:1">
 
           <div *ngFor="let item of listItems ">

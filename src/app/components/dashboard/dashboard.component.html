@@ -7,16 +7,20 @@
 
     <div class="col-md-10">
       <div>
-        <app-almacenes *ngIf="menuOpcion=='almacenes'"></app-almacenes>
-        <app-clientes *ngIf="menuOpcion=='clientes'"></app-clientes>
-        <app-cobros *ngIf="menuOpcion=='cobros'"></app-cobros>
-        <app-despachos *ngIf="menuOpcion=='despachos'"></app-despachos>
-        <app-pedidos *ngIf="menuOpcion=='pedidos'"></app-pedidos>
+        <app-pedidos  *ngIf="menuOpcion=='pedidos'"></app-pedidos>
+        <app-despachos  *ngIf="menuOpcion=='despachos'" ></app-despachos>
         <app-precios *ngIf="menuOpcion=='precios'"></app-precios>
+        <app-clientes *ngIf="menuOpcion=='clientes'"></app-clientes>
         <app-produccion *ngIf="menuOpcion=='produccion'"></app-produccion>
+        <app-almacenes *ngIf="menuOpcion=='almacenes'"></app-almacenes>
+        <app-cobros *ngIf="menuOpcion=='cobros'"></app-cobros>
       </div>
     </div>
+
+    
+
 
   </div>
 
 </div>
+

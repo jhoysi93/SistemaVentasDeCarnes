@@ -5,8 +5,11 @@
 
         <form class="form-inline">
           <input #nitCliente class="form-control mr-sm-2" type="number" placeholder="Search">
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" (click)="buscarPorNit(nitCliente.value)" >Buscar por  nit</button>
+          <button class="btn btn-primary my-2 my-sm-0" type="submit" (click)="buscarPorNit(nitCliente.value)" >Buscar por  nit</button>
+          <button style="margin-left: 30px" class="btn btn-primary my-2 my-sm-0" type="button" (click)="generarPdfCliente()" >Imprimir</button>
         </form>
+
+        
 
         <br><br>
 
@@ -37,5 +40,6 @@
 
     </div>
   </div>
+  
 
 </div>

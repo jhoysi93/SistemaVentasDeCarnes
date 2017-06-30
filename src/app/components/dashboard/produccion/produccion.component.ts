@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, DoCheck } from '@angular/core';
 import { iterateListLike } from '@angular/core/src/change_detection/change_detection_util';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Item } from '../../../models/Item';
@@ -13,7 +13,7 @@ import { AlmacenService } from '../../../services/firebase-services/almacen.serv
   templateUrl: './produccion.component.html',
   providers: [ItemService, AlmacenService]
 })
-export class ProduccionComponent implements OnInit {
+export class ProduccionComponent implements OnInit, DoCheck {
 
   activarFormAgregarItem: boolean = false;
   activarCardsItems: boolean = false;
@@ -26,6 +26,11 @@ export class ProduccionComponent implements OnInit {
 
   private btnActualizarItem: boolean = false;
   private btnGuardarItem: boolean = false;
+
+  private nombreItemBuscar: string = "";
+  private itemsAux: Item[] = [];
+
+
 
   @ViewChild('cerraModalEliminar') cerraModalEliminar: ElementRef;
 
@@ -46,7 +51,13 @@ export class ProduccionComponent implements OnInit {
 
     this.itemSer.getAllItems().subscribe((items) => {
       this.listItems = items;
+      this.itemsAux = items;
     });
+  }
+
+
+  ngDoCheck(){
+     this.buscarPorNombreItem();
   }
 
   private imagen: File;
@@ -116,6 +127,29 @@ export class ProduccionComponent implements OnInit {
     this.btnActualizarItem = false;
     this.activarFormAgregarItem = !this.activarFormAgregarItem;
     this.formatoItem.reset();
+  }
+
+
+   buscarPorNombreItem() {
+
+    if (this.nombreItemBuscar.length > 2) {
+      this.nombreItemBuscar = this.nombreItemBuscar.toLowerCase();
+      let itemsArrayEncontrados: Item[] = [];
+      for (let item of this.listItems) {
+        let nombreItem: string = item.nombre.toLowerCase();
+        if (item.nombre.indexOf(this.nombreItemBuscar) >= 0) {
+          itemsArrayEncontrados.push(item);
+        }
+        if (itemsArrayEncontrados.length > 0) {
+          this.listItems = itemsArrayEncontrados;
+        } else {
+          this.listItems = this.itemsAux;
+        }
+      }
+    } else {
+
+      this.listItems = this.itemsAux;
+    }
   }
 
 

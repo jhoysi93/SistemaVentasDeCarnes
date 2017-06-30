@@ -10,6 +10,8 @@ import { Pedido } from '../../../models/Pedido';
 export class DespachosComponent implements OnInit {
 
   private listaPedidos:Pedido[];
+  private mostrarAppPedido: boolean = false;
+
   constructor(private pedidoSer:PedidosService) { }
 
   ngOnInit() {
@@ -43,5 +45,6 @@ export class DespachosComponent implements OnInit {
       this.pedidoSer.updatePedido(pedidoKey, pedidoAux).then( ()=>console.log("pedido exitoso")).catch((error)=>console.log(error));
     }, 1100);
   }
+
 
 }
