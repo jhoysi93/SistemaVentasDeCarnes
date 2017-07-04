@@ -29,6 +29,7 @@ export class ClientesComponent implements OnInit {
         if (transaccionesAux.length > 0) {
           this.listTransaccionesCliente = transaccionesAux;
         } else {
+          this.listTransaccionesCliente = [];
           console.log("no existe en transacciones del cliente")
         }
       }, 1200);

@@ -13,6 +13,10 @@
 
         <br><br>
 
+        <div class="alert alert-info" role="alert" *ngIf="listTransaccionesCliente.length ==0">
+          <strong>No existen transacciones</strong>
+        </div>  
+<br><br>
         <table class="table table-striped">
         <thead>
           <tr>
