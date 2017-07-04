@@ -4,8 +4,8 @@
     <div class="col-md-12">
 
 
-      <button type="button" class="btn btn-primary" (click)="activarAgregarAlmacen = !activarAgregarAlmacen">Agregar Almacen</button>
-
+     <!-- <button type="button" disabled class="btn btn-primary" (click)="activarAgregarAlmacen = !activarAgregarAlmacen">Agregar Almacen</button>
+-->
       <br><br>
 
       <form [formGroup]="formatoAlmacen" (ngSubmit)="guardarAlmacen()" *ngIf="activarAgregarAlmacen">

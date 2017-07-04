@@ -29,7 +29,9 @@
             <td>{{ pedido.total }} Bs.</td>
             <td>{{ pedido.descuento }} %</td>
             <td>{{ pedido.totalFinal | number:'.1-2' }} Bs.</td>
-            <td>{{ pedido.ventaExitosa}}</td>
+            <td>
+              <h6 *ngIf="!pedido.ventaExitosa"> Venta no finalizada </h6>
+              </td>
             <td>
               <div>
                 <div class="row">

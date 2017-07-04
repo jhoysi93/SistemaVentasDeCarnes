@@ -22,7 +22,7 @@
             <td>{{pedido.nitCliente}}</td>
             <td>
               <div *ngFor="let desItem of pedido.despachoItems">
-                  <h6>{{ desItem.item.nombre }}: {{ desItem.item.cantidad }}</h6>
+                  <h6>{{ desItem.item.nombre }}: {{ desItem.item.cantidad }} Kg.</h6>
               </div>
             </td>
             <td>{{pedido.total}}</td>
